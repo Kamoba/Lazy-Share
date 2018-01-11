@@ -2,7 +2,10 @@
 
 Web page to Share quickly texts and files
 -----------------------------------
+
 ![ScreenShot](https://raw.githubusercontent.com/Kamoba/Lazy-Share/master/uploads/screenshot.png)
+
+
 
 I often want to copy and paste text (often confidential) quickly from one device to another.
 Or want to send a photo or document from my mobile phone or pc to another device.
