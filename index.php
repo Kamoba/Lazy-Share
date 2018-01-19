@@ -1,4 +1,12 @@
 <?php
+/*
+Server-side PHP file to share texts and files
+Featured on github.com
+Developed by Kamoba https://github.com/Kamoba
+*/
+
+define('USER', 'key');                  // choose your Get variables (USER and PASS)
+define('PASS', 'lazy');
     // write to file from ajax
 if (isset($_POST["textblock"])){   
 		$f = fopen("Text.txt", "w");   
@@ -7,8 +15,8 @@ if (isset($_POST["textblock"])){
 		fclose($f); 
 }
 
-if (isset($_GET['key'])){ 
-    if ($_GET['key'] != "lazy"){           // accessible only from YOURSERVER/lazy-share?key=lazy    change your Key!
+if (isset($_GET[USER])){ 
+    if ($_GET[USER] != PASS){           // accessible only from YOURSERVER/lazy-share?key=lazy    
 	  exit();
 	}
 }

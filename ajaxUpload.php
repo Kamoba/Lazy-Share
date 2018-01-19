@@ -49,15 +49,23 @@ function stopUpload(success){
              </div>
 			
 	<?php
+	
 		 if ($handle = opendir('./uploads')) {
+			 if(isset($_GET['delete']))                  // effacer ficher aui doivent l'etre avant d'afficher la list
+		     {
+			  $fileToDelete = "uploads/".$_GET['delete']; 
+			  if (file_exists($fileToDelete)){  unlink($fileToDelete); }
+			  header('location: ?'.USER.'='.PASS); exit();             // rediriger vers home
+		     }
 			  $list = "";
 		   while (false !== ($file = readdir($handle))) {
 				  if ($file != "." && $file != "..") {
-					$list .= '<li><a href="uploads/'.$file.'"download>'.$file.'</a></li>';
+					$list .= '<li><a href="uploads/'.$file.'"download>'.$file.'</a>&nbsp;  <a href="?'.USER.'='.PASS.'&delete='.$file.'" style="text-decoration:none;color:red;") >&#10008;</a></li>';
 				  }
 			   }
 		  closedir($handle);
 		  }
+		
     ?>
     <h2>List of files:</h2>
     <ul><?php echo $list; ?></ul>
