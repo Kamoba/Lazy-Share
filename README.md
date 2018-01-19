@@ -15,3 +15,5 @@ So I made this little script of HTML, PHP and jQuery for the moments when I'm la
 To use it, just put the "lazy-share" folder containing the files in your server/website and access it from this address : "YOURWEBSITE/lazy-share?key=lasy" (change the key!).
 
 And add this link to the your Bookmarks toolbar.
+
+if the upload remains blocked on the upload image is that the file size limit is exceeded. The file size limit depends on the limit imposed by your server.
