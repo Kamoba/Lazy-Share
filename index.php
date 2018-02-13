@@ -39,10 +39,10 @@ else{
 	  width: 100%;
 	  height: 20vw;
 	}
-	#copy{
+	#copy, #select{
 	background:#cccccc;
 	padding: 5px 15px 5px 15px;
-	margin: 0 15px 0 15px;
+	margin: 0 15px 0 0;
 	}
 	#cut{
 	background:#ff3300;
@@ -59,7 +59,7 @@ else{
 <center>
 <textarea id="myText" ></textarea> <br>  
 </center>
-<button id="copy">Copy</button> 	<button id="cut">Cut</button>  	<button id="save" onclick="Save()">Save</button>
+<button id="copy">Copy</button>  <button id="select" onclick="selectAll()">Select All</button> 	<button id="cut">Cut</button>  	<button id="save" onclick="Save()">Save</button>
 
 <p id="demo"></p>
 
@@ -112,17 +112,15 @@ function Success() {
 </script>
 <script type="text/javascript">   
 // select ALL
-	var textBox = document.getElementById("myText");
-	textBox.onfocus = function() {
-		textBox.select();
-
-		// Work around Chrome's little problem
-		textBox.onmouseup = function() {
-			// Prevent further mouseup intervention
-			textBox.onmouseup = null;
-			return false;
-		};
-	};
+function selectAll(){
+		var textBox = document.getElementById("myText");
+			textBox.select();
+			// Work around Chrome's little problem
+				// Prevent further mouseup intervention
+				textBox.onmouseup = null;
+				return false;
+	}
+				
 document.getElementById('copy').onmousedown = function() {    // on copy button pressed
 console.log(document.execCommand('copy'))
 }
