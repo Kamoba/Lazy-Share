@@ -7,12 +7,12 @@
 }
 #container #header #header_left {
 	float: left;
-	background: #3399ff;
+	background: #0069D9;
 	height: 42px;
 	width: 45px;
 }
 #container #header #header_right {
-	background: #3399ff;
+	background: #0069D9;
 	height: 42px;
 	width: 6px;
 	float: right;
@@ -25,7 +25,10 @@
 	font-weight: normal;
 	color: #666666;
 }
-
+#container #content form{
+		border: 1px dashed #0069D9;
+	  padding: 25px;
+}
 
 #container #header #header_main {
 	float: left;
@@ -47,7 +50,8 @@
 	color: #FFFFFF;
 	height: 22px;
 	width: 82px;
-	background: #3399ff;
+	padding: 20px;
+  line-height: 0px;
 }
 #container #content #form1 legend {
 	padding: 5px;
@@ -66,7 +70,7 @@ form {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	background: #3399ff;
+	background: #0069D9;
 	height: 42px;
 }
 label {
@@ -128,4 +132,15 @@ label {
    z-index:100;
    visibility:hidden;
    text-align:center;
+}
+body {
+height: 100%;
+}
+textarea {
+	margin: 10px;
+	width: calc(100% - 20px);
+	height: 20vw;
+}
+button{
+margin: 0 15px;
 }
