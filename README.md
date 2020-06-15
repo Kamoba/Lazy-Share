@@ -2,9 +2,8 @@
 
 Web page to Share quickly texts and files
 -----------------------------------
-
-![alt text](https://github.com/Kamoba/Lazy-Share/blob/master/Screenshot.jpg?raw=true)
-![ScreenShot](https://raw.githubusercontent.com/Kamoba/Lazy-Share/blob/master/uploads/Screenshot.jpg)
+<img src="/uploads/Screenshot.jpg" alt="screenshot">
+<!-- ![ScreenShot](https://raw.githubusercontent.com/Kamoba/Lazy-Share/blob/master/uploads/Screenshot.jpg) -->
 
 
 
