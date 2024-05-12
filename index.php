@@ -36,12 +36,13 @@ else{
 </head>
 <body>
 <center>
-<textarea id="myText" ></textarea> <br>
+	<textarea id="myText" name="myText"></textarea> <br>
 </center>
-<button type="button" class="btn btn-primary" id="copy">Copy</button>
-<button id="select" type="button" class="btn btn-primary" onclick="selectAll()">Select All</button>
-<button id="cut" type="button" class="btn btn-danger" >Cut</button>
-<button id="save" type="button" class="btn btn-success" onclick="Save()">Save</button>
+<button id="copy">Copy</button>  
+<button id="selectLine" onclick="selectLine()">Select Line</button> 	
+<button id="select" onclick="selectAll()">Select All</button> 	
+<button id="cut">Cut</button>  	
+<button id="save" onclick="Save()">Save</button>
 
 <p id="demo"></p>
 
@@ -94,6 +95,38 @@ function Success() {
 }
 </script>
 <script type="text/javascript">
+		function selectLine() {
+		var textarea = document.getElementById('myText');
+		var cursorPos = textarea.selectionStart;
+		var selectionEnd = textarea.selectionEnd;
+
+		// Store current scroll position
+		var scrollTop = textarea.scrollTop;
+
+		// Find start position of the current line
+		var startPos = cursorPos;
+		while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
+			startPos--;
+		}
+
+		// Find end position of the current line
+		var endPos = cursorPos;
+		while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
+			endPos++;
+		}
+
+		// Set selection range to select the current line
+		textarea.setSelectionRange(startPos, endPos);
+
+		// Restore focus and scroll position
+		textarea.focus();
+		textarea.scrollTop = scrollTop;
+
+		// Restore selection if it was not at cursor position
+		if (selectionEnd !== cursorPos) {
+			textarea.setSelectionRange(cursorPos, selectionEnd);
+		}
+	}
 // select ALL
 function selectAll(){
 		var textBox = document.getElementById("myText");
