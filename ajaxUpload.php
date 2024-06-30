@@ -118,8 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
   <div id="container">
-      <div id="header"><div id="header_left"></div>
-      <div id="header_main">AJAX File Uploader</div><div id="header_right"></div></div>
+      <div id="header">AJAX File Uploader</div>
       <div id="content">
           <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_process" >Loading...<br/><img src="loader.gif" /><br/></p>

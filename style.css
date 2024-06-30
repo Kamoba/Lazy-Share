@@ -1,39 +1,22 @@
-#container #header #header_left {
-	float: left;
-	background: #0069D9;
-	height: 42px;
-	width: 45px;
-}
-#container #header #header_right {
-	background: #0069D9;
-	height: 42px;
-	width: 6px;
-	float: right;
-}
-
-#container #content {
+#content {
 	padding: 5px;
 	font-family: Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	font-weight: normal;
 	color: #666666;
 }
-#container #content form{
+#content form{
 		border: 1px dashed #0069D9;
 	  padding: 25px;
 }
 
-#container #header #header_main {
-	float: left;
-	padding: 5px;
+#header {
+	padding: 1em;
+	background: #0069D9;
 	font-family: Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	font-weight: bold;
 	color: #FFFFFF;
-	margin-top: 5px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
 }
 
 .sbtn {
@@ -46,7 +29,7 @@
 	padding: 20px;
   line-height: 0px;
 }
-#container #content #form1 legend {
+#form1 legend {
 	padding: 5px;
 	margin: auto;
 }
@@ -55,17 +38,6 @@ form {
 }
 
 
-
-
-#container #header {
-	padding: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	background: #0069D9;
-	height: 42px;
-}
 label {
 	padding: 0px;
 	text-align: center;
