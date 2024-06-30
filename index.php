@@ -15,13 +15,8 @@ if (isset($_POST["textblock"])) {
 		fclose($f);
 }
 
-if (isset($_GET[USER])) {
-    if ($_GET[USER] != PASS) {           // accessible only from YOURSERVER/lazy-share?key=lazy
+if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only from YOURSERVER/lazy-share?key=lazy
 	  exit();
-	}
-}
-else {
-	exit();
 }
 ?>
 
