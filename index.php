@@ -8,19 +8,19 @@ Developed by Kamoba https://github.com/Kamoba
 define('USER', 'key');                  // choose your Get variables (USER and PASS)
 define('PASS', 'lazy');
     // write to file from ajax
-if (isset($_POST["textblock"])){
+if (isset($_POST["textblock"])) {
 		$f = fopen("Text.txt", "w");
 		$content = $_POST["textblock"];
 		fwrite($f, $content);
 		fclose($f);
 }
 
-if (isset($_GET[USER])){
-    if ($_GET[USER] != PASS){           // accessible only from YOURSERVER/lazy-share?key=lazy
+if (isset($_GET[USER])) {
+    if ($_GET[USER] != PASS) {           // accessible only from YOURSERVER/lazy-share?key=lazy
 	  exit();
 	}
 }
-else{
+else {
 	exit();
 }
 ?>
@@ -54,20 +54,20 @@ include "ajaxUpload.php";
 
 <script>
 /*
-function writeToFile(d1, d2){
+function writeToFile(d1, d2) {
 var fso = new ActiveXObject("Scripting.FileSystemObject");
 var fh = fso.OpenTextFile("test.txt", 8, false, 0);
 fh.WriteLine(d1 + ',' + d2);
 fh.Close();
 }
 var submit = document.getElementById("submit");
-submit.onclick = function () {
+submit.onclick = function() {
 	var id      = document.getElementById("id").value;
 	var content = document.getElementById("content").value;
 	writeToFile(id, content);
 }*/
-$(document).ready(function(){
-	$.ajaxSetup ({           // Disable caching of AJAX responses
+$(document).ready(function() {
+	$.ajaxSetup({           // Disable caching of AJAX responses
 	 cache: false
 	});
 
@@ -128,7 +128,7 @@ function Success() {
 		}
 	}
 // select ALL
-function selectAll(){
+function selectAll() {
 		var textBox = document.getElementById("myText");
 			textBox.select();
 			// Work around Chrome's little problem
