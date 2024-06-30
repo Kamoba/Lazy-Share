@@ -34,15 +34,15 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 <center>
 	<textarea id="myText" name="myText"></textarea> <br>
 </center>
+<div class="buttons">
 <button id="copy">Copy</button>  
 <button id="selectLine" onclick="selectLine()">Select Line</button> 	
 <button id="select" onclick="selectAll()">Select All</button> 	
 <button id="cut">Cut</button>  	
 <button id="save" onclick="Save()">Save</button>
+</div>
 
 <p id="demo"></p>
-
-<br><br><br>
 
 <?php
 include "ajaxUpload.php";
