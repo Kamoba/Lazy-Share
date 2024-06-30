@@ -12,12 +12,16 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 	  exit();
 }
 
-    // write to file from ajax
+// write to file from ajax
 if (isset($_POST["myText"])) {
-		$f = fopen("Text.txt", "w");
-		$content = $_POST["myText"];
-		fwrite($f, $content);
-		fclose($f);
+    $f = fopen("Text.txt", "w");
+    $content = $_POST["myText"];
+    fwrite($f, $content);
+    fclose($f);
+
+    header('HTTP/1.1 303 See Other');
+    header('Location: ' . $_SERVER['REQUEST_URI'] . '&txtMsg=Saved+successfully');
+    exit();
 }
 ?>
 
@@ -35,7 +39,7 @@ if (isset($_POST["myText"])) {
 
 <div class="buttons">
 <input type="submit" id="save" value="Save"></input>
-<span id="txtMsg"><?php if ($_POST['myText']) echo('Saved successfully') ?></span>
+<span id="txtMsg"><?php if ($_GET['txtMsg']) echo($_GET['txtMsg']) ?></span>
 </div>
 </form>
 
