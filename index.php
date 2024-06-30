@@ -38,7 +38,7 @@ if (isset($_POST["myText"])) {
 
 <div class="buttons">
 <input type="submit" id="save" value="Save"></input>
-<span id="txtMsg"></span>
+<span id="txtMsg"><?php if ($_POST['myText']) echo('Saved successfully') ?></span>
 </div>
 </form>
 
