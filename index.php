@@ -121,6 +121,7 @@ cb[0] = function copy() {    // on copy button pressed
 }
 
 cb[3] = function cut() {   // on cut button pressed
+    document.getElementById('myText').focus();
     console.log(document.execCommand('cut'))
 }
 
