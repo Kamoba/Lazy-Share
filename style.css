@@ -118,5 +118,5 @@ button{
   min-width: 7em;
 }
 .buttons {
-  margin-left: 1em;
+  margin: 0 0 1em 1em;
 }

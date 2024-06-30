@@ -42,9 +42,8 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 <button id="select" onclick="selectAll()">Select All</button> 	
 <button id="cut">Cut</button>  	
 <button id="save" onclick="Save()">Save</button>
+<span id="txtMsg"></span>
 </div>
-
-<p id="demo"></p>
 
 <?php
 include "ajaxUpload.php";
@@ -72,7 +71,7 @@ function Save() {
 		  });
 }
 function Success() {
-	document.getElementById("demo").innerHTML = "saved successfully!";
+	document.getElementById("txtMsg").innerHTML = "saved successfully!";
 }
 </script>
 <script type="text/javascript">
