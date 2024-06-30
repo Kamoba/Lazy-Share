@@ -46,13 +46,6 @@ if (isset($_POST["myText"])) {
 include "ajaxUpload.php";
 ?>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-	$.ajaxSetup({           // Disable caching of AJAX responses
-	 cache: false
-	});
-});
-</script>
 <script type="text/javascript">
 function selectLine() {
     var textarea = document.getElementById('myText');
