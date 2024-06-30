@@ -85,18 +85,16 @@ function selectLine() {
     if (selectionEnd !== cursorPos) {
         textarea.setSelectionRange(cursorPos, selectionEnd);
     }
+    document.getElementById('txtMsg').innerHTML = '';
 }
 
 function selectAll() {
-    var textBox = document.getElementById("myText");
-    textBox.select();
-    // Work around Chrome's little problem
-    // Prevent further mouseup intervention
-    textBox.onmouseup = null;
+    document.getElementById("myText").select();
+    document.getElementById('txtMsg').innerHTML = '';
     return false;
 }
 
-function copy(rm) {    // on copy button pressed
+function copy(_ev, rm) {    // on copy button pressed
    if (!navigator.clipboard) {
        document.getElementById('txtMsg').innerHTML = 'Copying not supported';
        return;
@@ -124,8 +122,8 @@ function copy(rm) {    // on copy button pressed
    });
 }
 
-function cut() {   // on cut button pressed
-    copy(true);
+function cut(ev) {
+    copy(ev, true);
 }
 
 const btnSubmit = document.getElementById('save');
