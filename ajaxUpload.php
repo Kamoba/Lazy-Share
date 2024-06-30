@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
   <div id="container">
-      <div id="header">File Uploader</div>
+      <h2>File Uploader</h2>
       <div id="content">
           <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
                 <p id="f1_upload_process" >Loading...<br/><img src="loader.gif" /><br/></p>
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
             </form>
         </div>
-    <h2>List of files:</h2>
+    <h3>List of files</h3>
     <ul id="file-list"><?php echo $list ?? ""; ?></ul>
   </div>
 
