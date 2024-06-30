@@ -50,12 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['updateList'])) {
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="style.css" rel="stylesheet" type="text/css" />
-   
+
 <script language="javascript" type="text/javascript">
 
 function startUpload(){
-      document.getElementById('f1_upload_process').style.visibility = 'visible';
-      document.getElementById('f1_upload_form').style.visibility = 'hidden';
+      document.getElementById('f1_upload_process').style.display = 'inline-block';
+      document.getElementById('f1_upload_form').style.display = 'inline-block';
       return true;
 }
 
@@ -68,10 +68,9 @@ function stopUpload(success){
       else {
          result = '<span class="emsg">There was an error during file upload!<\/span><br/><br/>';
       }
-      document.getElementById('f1_upload_process').style.visibility = 'hidden';
-      document.getElementById('f1_upload_form').innerHTML = result + '<label>File: <input name="myfile" type="file" size="30" /><\/label><br><br><label><input type="submit" name="submitBtn" class="sbtn" value="Upload" /><\/label>';
-      document.getElementById('f1_upload_form').style.visibility = 'visible';      
-      return true;   
+      document.getElementById('f1_upload_process').style.display = 'none';
+      document.getElementById('f1_upload_form').style.display = 'none';
+      return true;
 }
 
 function refreshList() {
@@ -79,18 +78,18 @@ function refreshList() {
   xhr.open('POST', 'ajaxUpload.php?updateList=1', true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) { 
+      if (xhr.readyState == 4 && xhr.status == 200) {
           document.getElementById('file-list').innerHTML = xhr.responseText;
           attachDeleteHandlers(); // Attach delete handlers after refreshing the list
       }
   };
-  xhr.send(); 
+  xhr.send();
 }
 
 
-function attachDeleteHandlers() { 
+function attachDeleteHandlers() {
     var deleteLinks = document.getElementsByClassName('delete-link');
-    for (var i = 0; i < deleteLinks.length; i++) { 
+    for (var i = 0; i < deleteLinks.length; i++) {
         deleteLinks[i].addEventListener('click', function(event) {
             event.preventDefault();
             var fileName = this.getAttribute('data-file');
@@ -114,27 +113,20 @@ function deleteFile(fileName) {
 document.addEventListener('DOMContentLoaded', function() {
   attachDeleteHandlers();
 });
-</script>   
+</script>
 </head>
 <body>
-  <div id="container">
-      <h2>File Uploader</h2>
-      <div id="content">
-          <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-                <p id="f1_upload_process" >Loading...<br/><img src="loader.gif" /><br/></p>
-                <p id="f1_upload_form" align="center"><br/>
-                    <label>File:  
-                        <input name="myfile" type="file" size="30" /><br><br>
-                    </label>
-                    <label>
-                        <input type="submit" name="submitBtn" class="sbtn" value="Upload" />
-                    </label>
-                </p>                
-                <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-            </form>
-        </div>
-    <h3>List of files</h3>
-    <ul id="file-list"><?php echo $list ?? ""; ?></ul>
-  </div>
+    <h2>File Uploader</h2>
+        <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+              <input name="myfile" type="file"/>
+              <div class="buttons">
+                  <input type="submit" name="submitBtn" class="sbtn" value="Upload" />
+                  <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
+                  <span id="f1_upload_form" align="center"></span>
+              </div>
+              <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+          </form>
+  <h3>List of files</h3>
+  <ul id="file-list"><?php echo $list ?? ""; ?></ul>
 
-</body>   
+</body>

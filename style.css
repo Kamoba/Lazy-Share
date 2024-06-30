@@ -5,9 +5,16 @@
 	font-weight: normal;
 	color: #666666;
 }
-#content form{
+form {
+    margin: 0;
+    position: relative;
+}
+
+input[name="myfile"] {
 		border: 1px dashed #0069D9;
-	  padding: 25px;
+    margin: 0.75em;
+    width: calc(100% - 1.5em);
+    padding: 5em 0 5em 1em;
 }
 
 h2 {
@@ -27,14 +34,7 @@ h3 {
 }
 
 .sbtn {
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	color: #FFFFFF;
-	height: 22px;
-	width: 82px;
-	padding: 20px;
-  line-height: 0px;
+  min-width: 7em;
 }
 #form1 legend {
 	padding: 5px;
@@ -74,10 +74,6 @@ label {
    visibility:hidden;
 }
 
-#f1_upload_form{
-   height:100px;
-}
-
 #f1_error{
    font-family: Geneva, Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -100,10 +96,8 @@ label {
 	color: #666666;
 }
 
-#f1_upload_process{
-   z-index:100;
-   visibility:hidden;
-   text-align:center;
+#f1_upload_process {
+  display: none;
 }
 body {
 height: 100%;
