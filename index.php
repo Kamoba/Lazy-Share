@@ -54,8 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script type="text/javascript">
-const cb = [];
-cb[0] = function selectLine() {
+function selectLine() {
     var textarea = document.getElementById('myText');
     var cursorPos = textarea.selectionStart;
     var selectionEnd = textarea.selectionEnd;
@@ -88,7 +87,7 @@ cb[0] = function selectLine() {
     }
 }
 
-cb[1] = function selectAll() {
+function selectAll() {
     var textBox = document.getElementById("myText");
     textBox.select();
     // Work around Chrome's little problem
@@ -97,37 +96,42 @@ cb[1] = function selectAll() {
     return false;
 }
 
-cb[3] = function copy() {    // on copy button pressed
+function copy(rm) {    // on copy button pressed
    if (!navigator.clipboard) {
        document.getElementById('txtMsg').innerHTML = 'Copying not supported';
        return;
    }
 
    const txtArea = document.getElementById('myText');
-   const start = txtArea.selectionStart;
+   let start = txtArea.selectionStart;
    const finish = txtArea.selectionEnd;
    let text = txtArea.value.substring(start, finish);
    if (!text) {
        text = document.getElementById('myText').value;
        txtArea.select();
+       start = 0;
    }
 
    navigator.clipboard.writeText(text).then(function() {
        document.getElementById('txtMsg').innerHTML = `Copied ${text.length} characers`;
+       if (rm) {
+           txtArea.value = txtArea.value.substr(0, start) + txtArea.value.substr(txtArea.selectionEnd);
+           txtArea.setSelectionRange(start, start);
+       }
        txtArea.focus();
    }, function() {
        document.getElementById('txtMsg').innerHTML = 'Copy failed';
    });
 }
 
-cb[2] = function cut() {   // on cut button pressed
-    document.getElementById('myText').focus();
-    console.log(document.execCommand('cut'))
+function cut() {   // on cut button pressed
+    copy(true);
 }
 
 const btnSubmit = document.getElementById('save');
 
 const btns = ['Select Line', 'Select All', 'Cut', 'Copy'];
+const cb = [selectLine, selectAll, cut, copy];
 for (let n = 0; n < btns.length; n++) {
   const btnNew = document.createElement('button');
   btnNew.type = 'button';
