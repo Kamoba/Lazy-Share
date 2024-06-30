@@ -50,7 +50,7 @@ include "ajaxUpload.php";
 ?>
 
 <script>
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", () => {
 	$.ajaxSetup({           // Disable caching of AJAX responses
 	 cache: false
 	});
