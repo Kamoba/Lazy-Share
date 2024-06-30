@@ -37,10 +37,10 @@ if (isset($_POST["myText"])) {
 <textarea id="myText" name="myText"><?php if (file_exists('Text.txt')) readfile('Text.txt'); ?></textarea>
 
 <div class="buttons">
-<button id="copy">Copy</button>  
-<button id="selectLine" onclick="selectLine()">Select Line</button> 	
-<button id="select" onclick="selectAll()">Select All</button> 	
-<button id="cut">Cut</button>  	
+<button type="button" id="copy">Copy</button>  
+<button type="button" id="selectLine" onclick="selectLine()">Select Line</button> 	
+<button type="button" id="select" onclick="selectAll()">Select All</button> 	
+<button type="button" id="cut">Cut</button>  	
 <input type="submit" value="Save"></input>
 <span id="txtMsg"></span>
 </div>
