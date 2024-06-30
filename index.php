@@ -38,8 +38,8 @@ if (isset($_POST["myText"])) {
 
 <div class="buttons">
 <button type="button" id="copy">Copy</button>  
-<button type="button" id="selectLine" onclick="selectLine()">Select Line</button> 	
-<button type="button" id="select" onclick="selectAll()">Select All</button> 	
+<button type="button" id="selectLine">Select Line</button> 	
+<button type="button" id="select">Select All</button> 	
 <button type="button" id="cut">Cut</button>  	
 <input type="submit" value="Save"></input>
 <span id="txtMsg"></span>
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script type="text/javascript">
-		function selectLine() {
+function selectLine() {
 		var textarea = document.getElementById('myText');
 		var cursorPos = textarea.selectionStart;
 		var selectionEnd = textarea.selectionEnd;
@@ -100,7 +100,7 @@ function selectAll() {
 				return false;
 	}
 
-document.getElementById('copy').onmousedown = function() {    // on copy button pressed
+function copy() {    // on copy button pressed
    if (!navigator.clipboard) {
        document.getElementById('txtMsg').innerHTML = 'Copying not supported';
        return;
@@ -122,11 +122,15 @@ document.getElementById('copy').onmousedown = function() {    // on copy button 
        document.getElementById('txtMsg').innerHTML = 'Copy failed';
    });
 }
-document.getElementById('cut').onmousedown = function() {   // on cut button pressed
-console.log(document.execCommand('cut'))
+
+function cut() {   // on cut button pressed
+    console.log(document.execCommand('cut'))
 }
 
-
+document.getElementById('copy').addEventListener('click', copy);
+document.getElementById('selectLine').addEventListener('click', selectLine);
+document.getElementById('select').addEventListener('click', selectAll);
+document.getElementById('cut').addEventListener('click', cut);
 </script>
 
 
