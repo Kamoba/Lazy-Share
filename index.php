@@ -34,17 +34,14 @@ if (isset($_POST["myText"])) {
 <body>
 <h2>Text Share</h2>
 <form action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post">
-<textarea id="myText" name="myText">
-  <?php if (file_exists('Text.txt')) readfile('Text.txt'); ?>
-</textarea>
+<textarea id="myText" name="myText"><?php if (file_exists('Text.txt')) readfile('Text.txt'); ?></textarea>
 
 <div class="buttons">
 <button id="copy">Copy</button>  
 <button id="selectLine" onclick="selectLine()">Select Line</button> 	
 <button id="select" onclick="selectAll()">Select All</button> 	
 <button id="cut">Cut</button>  	
-<button id="save" onclick="Save()">Save</button>
-<input type="submit">Save!</input>
+<input type="submit" value="Save"></input>
 <span id="txtMsg"></span>
 </div>
 </form>
@@ -59,24 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	 cache: false
 	});
 });
-</script>
-<script>
-
-function Save() {
-	const $Text = $('#myText').val();
-	 $.ajax({                            // Send texarea content with ajax
-			method: 'POST',
-			url: 'index.php',
-			data: { textblock: $Text },
-			timeout: 3000,
-			success: function(data) { Success(); },
-			error: function() { alert('The request was unsuccessful'); }
-
-		  });
-}
-function Success() {
-	document.getElementById("txtMsg").innerHTML = "saved successfully!";
-}
 </script>
 <script type="text/javascript">
 		function selectLine() {
