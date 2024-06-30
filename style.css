@@ -51,12 +51,20 @@ h2 {
 }
 
 body {
+  margin: 0;
   height: 100%;
+  line-height: 1.4;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
 }
 textarea {
 	margin: 10px;
 	width: calc(100% - 20px);
 	height: 20vw;
+  font: inherit;
+}
+ul, button, input {
+  font: inherit;
 }
 button, input[type="submit"] {
   margin: 0 .25em .5em 0;
@@ -64,4 +72,8 @@ button, input[type="submit"] {
 }
 .buttons {
   margin: 0 0 1em 1em;
+}
+
+* {
+  box-sizing: border-box;
 }
