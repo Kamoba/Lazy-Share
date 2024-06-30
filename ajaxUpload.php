@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
                   <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
                   <span id="f1_upload_form" align="center"></span>
               </div>
-              <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+              <iframe id="upload_target" name="upload_target" src="#"></iframe>
           </form>
-  <h3>List of files</h3>
+  <h2>File List</h2>
   <ul id="file-list"><?php echo $list ?? ""; ?></ul>
 
 </body>
