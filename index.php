@@ -31,9 +31,7 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 <meta name="viewport" content= "width=device-width, initial-scale=1.0">
 </head>
 <body>
-<center>
-	<textarea id="myText" name="myText"></textarea> <br>
-</center>
+<textarea id="myText" name="myText"></textarea>
 <div class="buttons">
 <button id="copy">Copy</button>  
 <button id="selectLine" onclick="selectLine()">Select Line</button> 	
