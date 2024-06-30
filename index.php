@@ -127,6 +127,10 @@ document.getElementById('copy').onmousedown = function() {    // on copy button 
    const start = txtArea.selectionStart;
    const finish = txtArea.selectionEnd;
    let text = txtArea.value.substring(start, finish);
+   if (!text) {
+       text = document.getElementById('myText').value;
+       txtArea.select();
+   }
 
    navigator.clipboard.writeText(text).then(function() {
        document.getElementById('txtMsg').innerHTML = `Copied ${text.length} characers`;
