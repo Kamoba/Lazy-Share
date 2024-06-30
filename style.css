@@ -1,10 +1,3 @@
-#content {
-	padding: 5px;
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: normal;
-	color: #666666;
-}
 form {
     margin: 0;
     position: relative;
@@ -27,26 +20,10 @@ h2 {
 	color: #FFFFFF;
 }
 
-h3 {
-  font-size: 14px;
-  padding: 0 1em;
-  font-weight: bold;
-}
-
 #file-list {
   margin: 0;
   padding: 1em;
   list-style-type: none;
-}
-
-#form1 legend {
-	padding: 5px;
-	margin: auto;
-}
-
-label {
-	padding: 0px;
-	text-align: center;
 }
 
 .msg {
@@ -67,32 +44,6 @@ label {
 	background-repeat: no-repeat;
 	padding:5px;
    padding-left:30px;
-}
-
-#loader{
-   visibility:hidden;
-}
-
-#f1_error{
-   font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-   font-weight:bold;
-   color:#FF0000;
-}
-
-#f1_ok{
-   font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-   font-weight:bold;
-   color:#00FF00;
-
-}
-
-#f1_upload_form {
-	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: normal;
-	color: #666666;
 }
 
 #f1_upload_process, #upload_target {
