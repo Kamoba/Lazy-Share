@@ -33,6 +33,12 @@ h3 {
   font-weight: bold;
 }
 
+#file-list {
+  margin: 0;
+  padding: 1em;
+  list-style-type: none;
+}
+
 #form1 legend {
 	padding: 5px;
 	margin: auto;

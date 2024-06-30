@@ -20,8 +20,8 @@ function getListFiles(){
       });
       $list = "";
       foreach ($files as $file) {
-        //$list .= '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="?' . USER . '=' . PASS . '&delete=' . rawurlencode($file['name']) . '" style="text-decoration:none;color:red;">&#10008;</a></li>';  // GET
-        $list .=  '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a></li>'; // POST
+        //$list .=  '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a></li>'; // POST
+        $list .=  '<li><a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a> <a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</li>'; // POST
       }
       return $list;
   }
