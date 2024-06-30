@@ -37,11 +37,7 @@ if (isset($_POST["myText"])) {
 <textarea id="myText" name="myText"><?php if (file_exists('Text.txt')) readfile('Text.txt'); ?></textarea>
 
 <div class="buttons">
-<button type="button" id="copy">Copy</button>  
-<button type="button" id="selectLine">Select Line</button> 	
-<button type="button" id="select">Select All</button> 	
-<button type="button" id="cut">Cut</button>  	
-<input type="submit" value="Save"></input>
+<input type="submit" id="save" value="Save"></input>
 <span id="txtMsg"></span>
 </div>
 </form>
@@ -58,7 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 <script type="text/javascript">
-function selectLine() {
+const cb = [];
+cb[1] = function selectLine() {
 		var textarea = document.getElementById('myText');
 		var cursorPos = textarea.selectionStart;
 		var selectionEnd = textarea.selectionEnd;
@@ -91,7 +88,7 @@ function selectLine() {
 		}
 	}
 // select ALL
-function selectAll() {
+cb[2] = function selectAll() {
 		var textBox = document.getElementById("myText");
 			textBox.select();
 			// Work around Chrome's little problem
@@ -100,7 +97,7 @@ function selectAll() {
 				return false;
 	}
 
-function copy() {    // on copy button pressed
+cb[0] = function copy() {    // on copy button pressed
    if (!navigator.clipboard) {
        document.getElementById('txtMsg').innerHTML = 'Copying not supported';
        return;
@@ -123,14 +120,20 @@ function copy() {    // on copy button pressed
    });
 }
 
-function cut() {   // on cut button pressed
+cb[3] = function cut() {   // on cut button pressed
     console.log(document.execCommand('cut'))
 }
 
-document.getElementById('copy').addEventListener('click', copy);
-document.getElementById('selectLine').addEventListener('click', selectLine);
-document.getElementById('select').addEventListener('click', selectAll);
-document.getElementById('cut').addEventListener('click', cut);
+const btnSubmit = document.getElementById('save');
+
+const btns = ['Copy', 'Select Line', 'Select All', 'Cut'];
+for (let n = 0; n < btns.length; n++) {
+  const btnNew = document.createElement('button');
+  btnNew.type = 'button';
+  btnNew.innerHTML = btns[n];
+  btnNew.addEventListener('click', cb[n]);
+  btnSubmit.parentElement.insertBefore(btnNew, btnSubmit);
+}
 </script>
 
 
