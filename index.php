@@ -7,16 +7,17 @@ Developed by Kamoba https://github.com/Kamoba
 
 define('USER', 'key');                  // choose your Get variables (USER and PASS)
 define('PASS', 'lazy');
-    // write to file from ajax
-if (isset($_POST["textblock"])) {
-		$f = fopen("Text.txt", "w");
-		$content = $_POST["textblock"];
-		fwrite($f, $content);
-		fclose($f);
-}
 
 if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only from YOURSERVER/lazy-share?key=lazy
 	  exit();
+}
+
+    // write to file from ajax
+if (isset($_POST["myText"])) {
+		$f = fopen("Text.txt", "w");
+		$content = $_POST["myText"];
+		fwrite($f, $content);
+		fclose($f);
 }
 ?>
 
@@ -32,6 +33,7 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 </head>
 <body>
 <h2>Text Share</h2>
+<form action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post">
 <textarea id="myText" name="myText">
   <?php if (file_exists('Text.txt')) readfile('Text.txt'); ?>
 </textarea>
@@ -42,8 +44,10 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 <button id="select" onclick="selectAll()">Select All</button> 	
 <button id="cut">Cut</button>  	
 <button id="save" onclick="Save()">Save</button>
+<input type="submit">Save!</input>
 <span id="txtMsg"></span>
 </div>
+</form>
 
 <?php
 include "ajaxUpload.php";
