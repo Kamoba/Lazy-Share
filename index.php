@@ -118,7 +118,22 @@ function selectAll() {
 	}
 
 document.getElementById('copy').onmousedown = function() {    // on copy button pressed
-console.log(document.execCommand('copy'))
+   if (!navigator.clipboard) {
+       document.getElementById('txtMsg').innerHTML = 'Copying not supported';
+       return;
+   }
+
+   const txtArea = document.getElementById('myText');
+   const start = txtArea.selectionStart;
+   const finish = txtArea.selectionEnd;
+   let text = txtArea.value.substring(start, finish);
+
+   navigator.clipboard.writeText(text).then(function() {
+       document.getElementById('txtMsg').innerHTML = `Copied ${text.length} characers`;
+       txtArea.focus();
+   }, function() {
+       document.getElementById('txtMsg').innerHTML = 'Copy failed';
+   });
 }
 document.getElementById('cut').onmousedown = function() {   // on cut button pressed
 console.log(document.execCommand('cut'))
