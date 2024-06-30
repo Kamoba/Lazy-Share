@@ -32,7 +32,10 @@ if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only f
 </head>
 <body>
 <h2>Text Share</h2>
-<textarea id="myText" name="myText"></textarea>
+<textarea id="myText" name="myText">
+  <?php if (file_exists('Text.txt')) readfile('Text.txt'); ?>
+</textarea>
+
 <div class="buttons">
 <button id="copy">Copy</button>  
 <button id="selectLine" onclick="selectLine()">Select Line</button> 	
@@ -52,10 +55,6 @@ $(document).ready(function() {
 	$.ajaxSetup({           // Disable caching of AJAX responses
 	 cache: false
 	});
-
-	$('#myText').load('Text.txt', function() {    // load file Text.txt
-	});
-
 });
 </script>
 <script>
