@@ -7,7 +7,7 @@ input[name="myfile"] {
 		border: 1px dashed #0069D9;
     margin: 0.75em;
     width: calc(100% - 1.5em);
-    padding: 5em 0 5em 1em;
+    padding: 1em 0 5em 1em;
 }
 
 h2 {
