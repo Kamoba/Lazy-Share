@@ -55,49 +55,49 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script type="text/javascript">
 const cb = [];
-cb[1] = function selectLine() {
-		var textarea = document.getElementById('myText');
-		var cursorPos = textarea.selectionStart;
-		var selectionEnd = textarea.selectionEnd;
+cb[0] = function selectLine() {
+    var textarea = document.getElementById('myText');
+    var cursorPos = textarea.selectionStart;
+    var selectionEnd = textarea.selectionEnd;
 
-		// Store current scroll position
-		var scrollTop = textarea.scrollTop;
+    // Store current scroll position
+    var scrollTop = textarea.scrollTop;
 
-		// Find start position of the current line
-		var startPos = cursorPos;
-		while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
-			startPos--;
-		}
+    // Find start position of the current line
+    var startPos = cursorPos;
+    while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
+        startPos--;
+    }
 
-		// Find end position of the current line
-		var endPos = cursorPos;
-		while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
-			endPos++;
-		}
+    // Find end position of the current line
+    var endPos = cursorPos;
+    while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
+        endPos++;
+    }
 
-		// Set selection range to select the current line
-		textarea.setSelectionRange(startPos, endPos);
+    // Set selection range to select the current line
+    textarea.setSelectionRange(startPos, endPos);
 
-		// Restore focus and scroll position
-		textarea.focus();
-		textarea.scrollTop = scrollTop;
+    // Restore focus and scroll position
+    textarea.focus();
+    textarea.scrollTop = scrollTop;
 
-		// Restore selection if it was not at cursor position
-		if (selectionEnd !== cursorPos) {
-			textarea.setSelectionRange(cursorPos, selectionEnd);
-		}
-	}
-// select ALL
-cb[2] = function selectAll() {
-		var textBox = document.getElementById("myText");
-			textBox.select();
-			// Work around Chrome's little problem
-				// Prevent further mouseup intervention
-				textBox.onmouseup = null;
-				return false;
-	}
+    // Restore selection if it was not at cursor position
+    if (selectionEnd !== cursorPos) {
+        textarea.setSelectionRange(cursorPos, selectionEnd);
+    }
+}
 
-cb[0] = function copy() {    // on copy button pressed
+cb[1] = function selectAll() {
+    var textBox = document.getElementById("myText");
+    textBox.select();
+    // Work around Chrome's little problem
+    // Prevent further mouseup intervention
+    textBox.onmouseup = null;
+    return false;
+}
+
+cb[3] = function copy() {    // on copy button pressed
    if (!navigator.clipboard) {
        document.getElementById('txtMsg').innerHTML = 'Copying not supported';
        return;
@@ -120,14 +120,14 @@ cb[0] = function copy() {    // on copy button pressed
    });
 }
 
-cb[3] = function cut() {   // on cut button pressed
+cb[2] = function cut() {   // on cut button pressed
     document.getElementById('myText').focus();
     console.log(document.execCommand('cut'))
 }
 
 const btnSubmit = document.getElementById('save');
 
-const btns = ['Copy', 'Select Line', 'Select All', 'Cut'];
+const btns = ['Select Line', 'Select All', 'Cut', 'Copy'];
 for (let n = 0; n < btns.length; n++) {
   const btnNew = document.createElement('button');
   btnNew.type = 'button';
