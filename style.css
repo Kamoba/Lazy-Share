@@ -49,6 +49,9 @@ h2 {
 #f1_upload_process, #upload_target {
   display: none;
 }
+#f1_upload_process img {
+  vertical-align: middle
+}
 
 body {
   margin: 0;

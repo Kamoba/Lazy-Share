@@ -1,7 +1,5 @@
 <?php
 
-
-
 function getListFiles(){
   $files = [];
   if ($handle = opendir('uploads')) {
@@ -120,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
               <input name="myfile" type="file"/>
               <div class="buttons">
-                  <input type="submit" name="submitBtn" class="sbtn" value="Upload" />
+                  <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
                   <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
                   <span id="f1_upload_form" align="center"></span>
               </div>
