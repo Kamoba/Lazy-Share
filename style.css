@@ -65,6 +65,7 @@ textarea {
 	width: calc(100% - 20px);
 	height: 20vw;
   font: inherit;
+  resize: vertical;
 }
 ul, button, input {
   font: inherit;
