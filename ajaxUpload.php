@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['updateList'])) {
     if (file_exists($filePath)) {
         unlink($filePath);
     }
+    exit();
 } else {
     $list = getListFiles();
 }
