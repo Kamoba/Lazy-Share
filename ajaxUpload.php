@@ -1,47 +1,46 @@
 <?php
 
-function getListFiles(){
+function getListFiles() {
   $files = [];
   if ($handle = opendir('uploads')) {
-      while (false !== ($file = readdir($handle))) {
-          if ($file != "." && $file != "..") {
-              $files[] = [
-                  'name' => $file,
-                  'time' => filemtime('uploads/' . $file)
-              ];
-          }
+    while (false !== ($file = readdir($handle))) {
+      if ($file != "." && $file != "..") {
+        $files[] = [
+          'name' => $file,
+          'time' => filemtime('uploads/' . $file)
+        ];
       }
-      closedir($handle);
+    }
+    closedir($handle);
 
-      usort($files, function($a, $b) {
-          return $b['time'] - $a['time'];
-      });
-      $list = "";
-      foreach ($files as $file) {
-        //$list .=  '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a></li>'; // POST
-        $list .=  '<li><a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a> <a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</li>'; // POST
-      }
-      return $list;
+    usort($files, function($a, $b) {
+      return $b['time'] - $a['time'];
+    });
+    $list = "";
+    foreach ($files as $file) {
+      //$list .=  '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a></li>'; // POST
+      $list .=  '<li><a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a> <a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</li>'; // POST
+    }
+    return $list;
   }
 }
 
 $listFiles = "";
 // update list files after upload new file
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['updateList'])) {
-    echo getListFiles();
-    return;
-}  elseif (isset($_POST['delete'])) {
-    $fileToDelete = $_POST['delete'];
-    $filePath = 'uploads/' . $fileToDelete;
-    $listDeleted = [];
-    if (file_exists($filePath)) {
-        unlink($filePath);
-    }
-    exit();
+  echo getListFiles();
+  return;
+} elseif (isset($_POST['delete'])) {
+  $fileToDelete = $_POST['delete'];
+  $filePath = 'uploads/' . $fileToDelete;
+  $listDeleted = [];
+  if (file_exists($filePath)) {
+    unlink($filePath);
+  }
+  exit();
 } else {
-    $list = getListFiles();
+  $list = getListFiles();
 }
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
