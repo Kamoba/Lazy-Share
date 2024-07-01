@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
     <h2>File Uploader</h2>
         <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-              <input name="myfile" type="file"/>
+              <input name="myfile[]" type="file" multiple/>
               <div class="buttons">
                   <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
                   <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>

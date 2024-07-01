@@ -3,7 +3,7 @@ form {
     position: relative;
 }
 
-input[name="myfile"] {
+input[type="file"] {
 		border: 1px dashed #0069D9;
     margin: 0.75em;
     width: calc(100% - 1.5em);
