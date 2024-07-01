@@ -56,21 +56,6 @@ function startUpload() {
   return true;
 }
 
-function stopUpload(success) {
-  var result = '';
-  if (success == 1){
-    result = 'File upload ok';
-    refreshList();
-  } else {
-    result = 'Error during file upload';
-  }
-  document.getElementById('f1_upload_process').style.display = 'none';
-  const fileMsg = document.getElementById('f1_upload_form');
-  fileMsg.innerHTML = result;
-  fileMsg.style.display = 'inline-block';
-  return true;
-}
-
 function refreshList() {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'ajaxUpload.php?updateList=1', true);
