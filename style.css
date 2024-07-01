@@ -26,27 +26,7 @@ h2 {
   list-style-type: none;
 }
 
-.msg {
-  text-align:left;
-  color:#666;
-  background-repeat: no-repeat;
-  margin-left:30px;
-  margin-right:30px;
-  padding:5px;
-  padding-left:30px;
-}
-
-.emsg {
-  text-align:left;
-  margin-left:30px;
-  margin-right:30px;
-  color:#666;
-  background-repeat: no-repeat;
-  padding:5px;
-  padding-left:30px;
-}
-
-#f1_upload_process, #upload_target {
+#f1_upload_process {
   display: none;
 }
 
