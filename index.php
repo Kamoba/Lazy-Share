@@ -23,6 +23,21 @@ if (isset($_POST["myText"])) {
     header('Location: ' . $_SERVER['REQUEST_URI'] . '&txtMsg=Saved+successfully');
     exit();
 }
+
+if (isset($_FILES['myfile'])) {
+   // Edit upload location here
+   $destination_path = getcwd() . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR;
+
+   $result = 0;
+   $nrFiles = count($_FILES['myfile']['name']);
+   for ($n = 0; $n < $nrFiles; $n++) {
+     $target_path = $destination_path . basename($_FILES['myfile']['name'][$n]);
+     if(@move_uploaded_file($_FILES['myfile']['tmp_name'][$n], $target_path)) $result = 1;
+   }
+   header('HTTP/1.1 303 See Other');
+   header('Location: ' . $_SERVER['REQUEST_URI'] . '&txtFile=' . ($result? 'Upload successful': 'Upload error'));
+   exit();
+}
 ?>
 
 <!DOCTYPE html>

@@ -114,14 +114,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
   <h2>File Uploader</h2>
-    <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+    <form action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post" enctype="multipart/form-data" onsubmit="startUpload();" >
       <input name="myfile[]" type="file" multiple/>
       <div class="buttons">
         <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
         <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
-        <span id="f1_upload_form" align="center"></span>
+        <span id="f1_upload_form" align="center"><?php if ($_GET['txtFile']) echo($_GET['txtFile']) ?></span>
       </div>
-      <iframe id="upload_target" name="upload_target" src="#"></iframe>
     </form>
   <h2>File List</h2>
   <ul id="file-list"><?php echo $list ?? ""; ?></ul>
