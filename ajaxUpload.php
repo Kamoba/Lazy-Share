@@ -53,21 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['updateList'])) {
 
 function startUpload(){
       document.getElementById('f1_upload_process').style.display = 'inline-block';
-      document.getElementById('f1_upload_form').style.display = 'inline-block';
+      document.getElementById('f1_upload_form').style.display = 'none';
       return true;
 }
 
 function stopUpload(success){
       var result = '';
       if (success == 1){
-         result = '<span class="msg">The file was uploaded successfully!<\/span><br/><br/>';
+         result = 'File upload ok';
          refreshList();
-      }
-      else {
-         result = '<span class="emsg">There was an error during file upload!<\/span><br/><br/>';
+      } else {
+         result = 'Error during file upload';
       }
       document.getElementById('f1_upload_process').style.display = 'none';
-      document.getElementById('f1_upload_form').style.display = 'none';
+      const fileMsg = document.getElementById('f1_upload_form');
+      fileMsg.innerHTML = result;
+      fileMsg.style.display = 'inline-block';
       return true;
 }
 
