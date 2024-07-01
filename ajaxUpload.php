@@ -46,30 +46,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['updateList'])) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
 
-<script language="javascript" type="text/javascript">
-
-function startUpload(){
-      document.getElementById('f1_upload_process').style.display = 'inline-block';
-      document.getElementById('f1_upload_form').style.display = 'none';
-      return true;
+  <script language="javascript" type="text/javascript">
+function startUpload() {
+  document.getElementById('f1_upload_process').style.display = 'inline-block';
+  document.getElementById('f1_upload_form').style.display = 'none';
+  return true;
 }
 
-function stopUpload(success){
-      var result = '';
-      if (success == 1){
-         result = 'File upload ok';
-         refreshList();
-      } else {
-         result = 'Error during file upload';
-      }
-      document.getElementById('f1_upload_process').style.display = 'none';
-      const fileMsg = document.getElementById('f1_upload_form');
-      fileMsg.innerHTML = result;
-      fileMsg.style.display = 'inline-block';
-      return true;
+function stopUpload(success) {
+  var result = '';
+  if (success == 1){
+    result = 'File upload ok';
+    refreshList();
+  } else {
+    result = 'Error during file upload';
+  }
+  document.getElementById('f1_upload_process').style.display = 'none';
+  const fileMsg = document.getElementById('f1_upload_form');
+  fileMsg.innerHTML = result;
+  fileMsg.style.display = 'inline-block';
+  return true;
 }
 
 function refreshList() {
@@ -77,36 +76,35 @@ function refreshList() {
   xhr.open('POST', 'ajaxUpload.php?updateList=1', true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-          document.getElementById('file-list').innerHTML = xhr.responseText;
-          attachDeleteHandlers(); // Attach delete handlers after refreshing the list
-      }
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      document.getElementById('file-list').innerHTML = xhr.responseText;
+      attachDeleteHandlers(); // Attach delete handlers after refreshing the list
+    }
   };
   xhr.send();
 }
 
-
 function attachDeleteHandlers() {
-    var deleteLinks = document.getElementsByClassName('delete-link');
-    for (var i = 0; i < deleteLinks.length; i++) {
-        deleteLinks[i].addEventListener('click', function(event) {
-            event.preventDefault();
-            var fileName = this.getAttribute('data-file');
-            deleteFile(fileName);
-        });
-    }
+  var deleteLinks = document.getElementsByClassName('delete-link');
+  for (var i = 0; i < deleteLinks.length; i++) {
+    deleteLinks[i].addEventListener('click', function(event) {
+      event.preventDefault();
+      var fileName = this.getAttribute('data-file');
+      deleteFile(fileName);
+    });
+  }
 }
 
 function deleteFile(fileName) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'ajaxUpload.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            refreshList(); // Refresh the list after deleting the file
-        }
-    };
-    xhr.send('delete=' + encodeURIComponent(fileName));
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'ajaxUpload.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      refreshList(); // Refresh the list after deleting the file
+    }
+  };
+  xhr.send('delete=' + encodeURIComponent(fileName));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -115,17 +113,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-    <h2>File Uploader</h2>
-        <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-              <input name="myfile[]" type="file" multiple/>
-              <div class="buttons">
-                  <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
-                  <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
-                  <span id="f1_upload_form" align="center"></span>
-              </div>
-              <iframe id="upload_target" name="upload_target" src="#"></iframe>
-          </form>
+  <h2>File Uploader</h2>
+    <form action="upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+      <input name="myfile[]" type="file" multiple/>
+      <div class="buttons">
+        <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
+        <span id="f1_upload_process">Loading... <img src="loader.gif"/></span>
+        <span id="f1_upload_form" align="center"></span>
+      </div>
+      <iframe id="upload_target" name="upload_target" src="#"></iframe>
+    </form>
   <h2>File List</h2>
   <ul id="file-list"><?php echo $list ?? ""; ?></ul>
-
 </body>
+</html>
