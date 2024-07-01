@@ -1,13 +1,21 @@
 <?php
 
+function sizeFormat($size) {
+  $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+  $power = $size > 0 ? floor(log($size, 1024)) : 0;
+  return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+}
+
 function getListFiles() {
   $files = [];
   if ($handle = opendir('uploads')) {
     while (false !== ($file = readdir($handle))) {
       if ($file != "." && $file != "..") {
+        $fileData = stat('uploads/' . $file);
         $files[] = [
           'name' => $file,
-          'time' => filemtime('uploads/' . $file)
+          'time' => $fileData['mtime'],
+          'size' => sizeFormat($fileData['size']),
         ];
       }
     }
@@ -19,7 +27,7 @@ function getListFiles() {
     $list = "";
     foreach ($files as $file) {
       //$list .=  '<li><a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</a>&nbsp;  <a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a></li>'; // POST
-      $list .=  '<li><a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a> <a href="uploads/' . $file['name'] . '" download>' . $file['name'] . '</li>'; // POST
+      $list .=  '<li><a href="#" data-file="' . htmlspecialchars($file['name']) . '" class="delete-link" style="text-decoration:none;color:red;">&#10008;</a> <a href="uploads/' . $file['name'] . '">' . $file['name'] . '</a> (' . $file['size'] . ')</li>'; // POST
     }
     return $list;
   }
