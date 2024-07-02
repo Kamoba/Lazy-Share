@@ -48,8 +48,8 @@ if (isset($_FILES['myfile'])) {
 <meta name="viewport" content= "width=device-width, initial-scale=1.0">
 </head>
 <body>
-<h2>Text Share</h2>
-<form action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post">
+<input type="checkbox" class="formToggle" id="tglText" checked><label for="tglText"><h2>Text Share</h2></label>
+<form class="tglArea" action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post">
 <textarea id="myText" name="myText"><?php if (file_exists('Text.txt')) readfile('Text.txt'); ?></textarea>
 
 <div class="buttons">

@@ -10,6 +10,19 @@ input[type="file"] {
   padding: 1em 0 5em 1em;
 }
 
+.tglArea {
+  display: none;
+}
+
+.formToggle:checked + label + .tglArea {
+  display: block;
+}
+
+.formToggle {
+  visibility: hidden;
+  position: absolute;
+}
+
 h2 {
   margin: 0;
   padding: 1em;

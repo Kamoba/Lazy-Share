@@ -106,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-  <h2>File Uploader</h2>
-    <form action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post" enctype="multipart/form-data" onsubmit="startUpload();" >
+  <input type="checkbox" class="formToggle" id="tglUpload" checked><label for="tglUpload"><h2>File Uploader</h2></label>
+    <form class="tglArea" action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post" enctype="multipart/form-data" onsubmit="startUpload();" >
       <input name="myfile[]" type="file" multiple/>
       <div class="buttons">
         <input type="submit" name="submitBtn" class="sbtn" value="Upload"/>
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <span id="f1_upload_form" align="center"><?php if ($_GET['txtFile']) echo($_GET['txtFile']) ?></span>
       </div>
     </form>
-  <h2>File List</h2>
-  <ul id="file-list"><?php echo $list ?? ""; ?></ul>
+  <input type="checkbox" class="formToggle" id="tglList" checked><label for="tglList"><h2>File List</h2></label>
+  <ul class="tglArea" id="file-list"><?php echo $list ?? ""; ?></ul>
 </body>
 </html>
