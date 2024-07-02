@@ -7,21 +7,36 @@ Developed by Kamoba https://github.com/Kamoba
 
 define('USER', 'key');                  // choose your Get variables (USER and PASS)
 define('PASS', 'lazy');
-    // write to file from ajax
-if (isset($_POST["textblock"])){
-		$f = fopen("Text.txt", "w");
-		$content = $_POST["textblock"];
-		fwrite($f, $content);
-		fclose($f);
+
+if (!isset($_GET[USER]) || $_GET[USER] != PASS) {           // accessible only from YOURSERVER/lazy-share?key=lazy
+	  exit();
 }
 
-if (isset($_GET[USER])){
-    if ($_GET[USER] != PASS){           // accessible only from YOURSERVER/lazy-share?key=lazy
-	  exit();
-	}
+// write to file from ajax
+if (isset($_POST["myText"])) {
+    $f = fopen("Text.txt", "w");
+    $content = $_POST["myText"];
+    fwrite($f, $content);
+    fclose($f);
+
+    header('HTTP/1.1 303 See Other');
+    header('Location: ' . $_SERVER['REQUEST_URI'] . '&txtMsg=Saved+successfully');
+    exit();
 }
-else{
-	exit();
+
+if (isset($_FILES['myfile'])) {
+   // Edit upload location here
+   $destination_path = getcwd() . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR;
+
+   $result = 0;
+   $nrFiles = count($_FILES['myfile']['name']);
+   for ($n = 0; $n < $nrFiles; $n++) {
+     $target_path = $destination_path . basename($_FILES['myfile']['name'][$n]);
+     if(@move_uploaded_file($_FILES['myfile']['tmp_name'][$n], $target_path)) $result = 1;
+   }
+   header('HTTP/1.1 303 See Other');
+   header('Location: ' . $_SERVER['REQUEST_URI'] . '&txtFile=' . ($result? 'Upload successful': 'Upload error'));
+   exit();
 }
 ?>
 
@@ -30,121 +45,107 @@ else{
 <head>
 <meta charset="utf-8">
 <title>Lazy Share</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<meta name="viewport" content= "width=device-width, initial-scale=1.0">
 </head>
 <body>
-<center>
-	<textarea id="myText" name="myText"></textarea> <br>
-</center>
-<button id="copy">Copy</button>  
-<button id="selectLine" onclick="selectLine()">Select Line</button> 	
-<button id="select" onclick="selectAll()">Select All</button> 	
-<button id="cut">Cut</button>  	
-<button id="save" onclick="Save()">Save</button>
+<input type="checkbox" class="formToggle" id="tglText" checked><label for="tglText"><h2>Text Share</h2></label>
+<form class="tglArea" action="index.php?<?php echo($_SERVER['QUERY_STRING']); ?>" method="post">
+<textarea id="myText" name="myText"><?php if (file_exists('Text.txt')) readfile('Text.txt'); ?></textarea>
 
-<p id="demo"></p>
-
-<br><br><br>
+<div class="buttons">
+<input type="submit" id="save" value="Save"></input>
+<span id="txtMsg"><?php if ($_GET['txtMsg']) echo($_GET['txtMsg']) ?></span>
+</div>
+</form>
 
 <?php
 include "ajaxUpload.php";
 ?>
 
-<script>
-/*
-function writeToFile(d1, d2){
-var fso = new ActiveXObject("Scripting.FileSystemObject");
-var fh = fso.OpenTextFile("test.txt", 8, false, 0);
-fh.WriteLine(d1 + ',' + d2);
-fh.Close();
-}
-var submit = document.getElementById("submit");
-submit.onclick = function () {
-	var id      = document.getElementById("id").value;
-	var content = document.getElementById("content").value;
-	writeToFile(id, content);
-}*/
-$(document).ready(function(){
-	$.ajaxSetup ({           // Disable caching of AJAX responses
-	 cache: false
-	});
-
-	$('#myText').load('Text.txt', function() {    // load file Text.txt
-	});
-
-});
-</script>
-<script>
-
-function Save() {
-	const $Text = $('#myText').val();
-	 $.ajax({                            // Send texarea content with ajax
-			method: 'POST',
-			url: 'index.php',
-			data: { textblock: $Text },
-			timeout: 3000,
-			success: function(data) { Success(); },
-			error: function() { alert('The request was unsuccessful'); }
-
-		  });
-}
-function Success() {
-	document.getElementById("demo").innerHTML = "saved successfully!";
-}
-</script>
 <script type="text/javascript">
-		function selectLine() {
-		var textarea = document.getElementById('myText');
-		var cursorPos = textarea.selectionStart;
-		var selectionEnd = textarea.selectionEnd;
+function selectLine() {
+    var textarea = document.getElementById('myText');
+    var cursorPos = textarea.selectionStart;
+    var selectionEnd = textarea.selectionEnd;
 
-		// Store current scroll position
-		var scrollTop = textarea.scrollTop;
+    // Store current scroll position
+    var scrollTop = textarea.scrollTop;
 
-		// Find start position of the current line
-		var startPos = cursorPos;
-		while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
-			startPos--;
-		}
+    // Find start position of the current line
+    var startPos = cursorPos;
+    while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
+        startPos--;
+    }
 
-		// Find end position of the current line
-		var endPos = cursorPos;
-		while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
-			endPos++;
-		}
+    // Find end position of the current line
+    var endPos = cursorPos;
+    while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
+        endPos++;
+    }
 
-		// Set selection range to select the current line
-		textarea.setSelectionRange(startPos, endPos);
+    // Set selection range to select the current line
+    textarea.setSelectionRange(startPos, endPos);
 
-		// Restore focus and scroll position
-		textarea.focus();
-		textarea.scrollTop = scrollTop;
+    // Restore focus and scroll position
+    textarea.focus();
+    textarea.scrollTop = scrollTop;
 
-		// Restore selection if it was not at cursor position
-		if (selectionEnd !== cursorPos) {
-			textarea.setSelectionRange(cursorPos, selectionEnd);
-		}
-	}
-// select ALL
-function selectAll(){
-		var textBox = document.getElementById("myText");
-			textBox.select();
-			// Work around Chrome's little problem
-				// Prevent further mouseup intervention
-				textBox.onmouseup = null;
-				return false;
-	}
-
-document.getElementById('copy').onmousedown = function() {    // on copy button pressed
-console.log(document.execCommand('copy'))
-}
-document.getElementById('cut').onmousedown = function() {   // on cut button pressed
-console.log(document.execCommand('cut'))
+    // Restore selection if it was not at cursor position
+    if (selectionEnd !== cursorPos) {
+        textarea.setSelectionRange(cursorPos, selectionEnd);
+    }
+    document.getElementById('txtMsg').innerHTML = '';
 }
 
+function selectAll() {
+    document.getElementById("myText").select();
+    document.getElementById('txtMsg').innerHTML = '';
+    return false;
+}
 
+function copy(_ev, rm) {    // on copy button pressed
+   if (!navigator.clipboard) {
+       document.getElementById('txtMsg').innerHTML = 'Copying not supported';
+       return;
+   }
+
+   const txtArea = document.getElementById('myText');
+   let start = txtArea.selectionStart;
+   const finish = txtArea.selectionEnd;
+   let text = txtArea.value.substring(start, finish);
+   if (!text) {
+       text = document.getElementById('myText').value;
+       txtArea.select();
+       start = 0;
+   }
+
+   navigator.clipboard.writeText(text).then(function() {
+       document.getElementById('txtMsg').innerHTML = `Copied ${text.length} characers`;
+       if (rm) {
+           txtArea.value = txtArea.value.substr(0, start) + txtArea.value.substr(txtArea.selectionEnd);
+           txtArea.setSelectionRange(start, start);
+       }
+       txtArea.focus();
+   }, function() {
+       document.getElementById('txtMsg').innerHTML = 'Copy failed';
+   });
+}
+
+function cut(ev) {
+    copy(ev, true);
+}
+
+const btnSubmit = document.getElementById('save');
+
+const btns = ['Select Line', 'Select All', 'Cut', 'Copy'];
+const cb = [selectLine, selectAll, cut, copy];
+for (let n = 0; n < btns.length; n++) {
+  const btnNew = document.createElement('button');
+  btnNew.type = 'button';
+  btnNew.innerHTML = btns[n];
+  btnNew.addEventListener('click', cb[n]);
+  btnSubmit.parentElement.insertBefore(btnNew, btnSubmit);
+}
 </script>
 
 
