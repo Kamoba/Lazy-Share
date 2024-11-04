@@ -28,125 +28,164 @@ else{
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Lazy Share</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <title>Lazy Share</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            height: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            height: 20vw;
+        }
+
+        button{
+            cursor: pointer;
+        }
+        #reload, #copy,
+        #select {
+            background: #cccccc;
+            padding: 5px 15px 5px 15px;
+            margin: 0 15px 0 0;
+        }
+
+        #paste,
+        #selectLine {
+            background: #cccccc;
+            padding: 5px 15px 5px 15px;
+            margin: 0 15px 0 0;
+        }
+        #cut {
+            background: #ff3300;
+            padding: 5px 15px 5px 15px;
+            margin: 0 15px 0 0px;
+        }
+
+        #save {
+            background: #00b33c;
+            padding: 5px 15px 5px 15px;
+        }
+        .success{
+            color: #00b33c;
+        }
+    </style>
 </head>
+
 <body>
-<center>
-	<textarea id="myText" name="myText"></textarea> <br>
-</center>
-<button id="copy">Copy</button>  
-<button id="selectLine" onclick="selectLine()">Select Line</button> 	
-<button id="select" onclick="selectAll()">Select All</button> 	
-<button id="cut">Cut</button>  	
+    <center>
+        <textarea id="myText" name="myText"></textarea> <br> <!-- il faut ajouter "name" pour que serialise() marche!  -->
+    </center>
+    <button id="reload">&#x1F504;</button>  
+    <button id="copy">Copy</button>  
+<button id="selectLine" onclick="selectLine()">Select Line</button>     
+<button id="select" onclick="selectAll()">Select All</button>   
+<button id="cut">Cut</button>   
 <button id="save" onclick="Save()">Save</button>
 
 <p id="demo"></p>
 
 <br><br><br>
-
 <?php
 include "ajaxUpload.php";
 ?>
 
+
 <script>
-/*
-function writeToFile(d1, d2){
-var fso = new ActiveXObject("Scripting.FileSystemObject");
-var fh = fso.OpenTextFile("test.txt", 8, false, 0);
-fh.WriteLine(d1 + ',' + d2);
-fh.Close();
-}
-var submit = document.getElementById("submit");
-submit.onclick = function () {
-	var id      = document.getElementById("id").value;
-	var content = document.getElementById("content").value;
-	writeToFile(id, content);
-}*/
-$(document).ready(function(){
-	$.ajaxSetup ({           // Disable caching of AJAX responses
-	 cache: false
-	});
+    $(document).ready(function() {
+        $.ajaxSetup({ // Disable caching of AJAX responses
+            cache: false
+        });
 
-	$('#myText').load('Text.txt', function() {    // load file Text.txt
-	});
+        $('#myText').load('Text.txt', function() { // lire, inclure le fichier Text.txt
+        });
 
-});
+    });
 </script>
 <script>
+    function Save() {
+        const $Text = $('#myText').val(); //.serialize();   // pour garder les caracteres speciaux!
+        //alert($Text);
+        $.ajax({
+            method: 'POST', // GET ou POST (GET par défaut). On peut utiliser "type" aussi à la place de "method"
+            url: 'index.php', //adresse à laquelle la requête doit être envoyée.
+            data: {
+                textblock: $Text
+            },
+            timeout: 3000, // délai maximum (en millisecondes) ==> ERROR
+            success: function(data) {
+                Reussi();
+            }, // fct exécutée en cas de succès
+            error: function() {
+                alert('The request was unsuccessful');
+            } // fct en cas d'echéc. (La requête n\'a pas abouti)
 
-function Save() {
-	const $Text = $('#myText').val();
-	 $.ajax({                            // Send texarea content with ajax
-			method: 'POST',
-			url: 'index.php',
-			data: { textblock: $Text },
-			timeout: 3000,
-			success: function(data) { Success(); },
-			error: function() { alert('The request was unsuccessful'); }
+        });
+    }
 
-		  });
-}
-function Success() {
-	document.getElementById("demo").innerHTML = "saved successfully!";
-}
+    function Reussi() {
+        document.getElementById("demo").innerHTML = '<span class="success">Saved successfully!</span>';
+    }
 </script>
 <script type="text/javascript">
-		function selectLine() {
-		var textarea = document.getElementById('myText');
-		var cursorPos = textarea.selectionStart;
-		var selectionEnd = textarea.selectionEnd;
+function selectLine() {
+    var textarea = document.getElementById('myText');
+    var cursorPos = textarea.selectionStart;
+    var selectionEnd = textarea.selectionEnd;
 
-		// Store current scroll position
-		var scrollTop = textarea.scrollTop;
+    // Store current scroll position
+    var scrollTop = textarea.scrollTop;
 
-		// Find start position of the current line
-		var startPos = cursorPos;
-		while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
-			startPos--;
-		}
+    // Find start position of the current line
+    var startPos = cursorPos;
+    while (startPos > 0 && textarea.value[startPos - 1] !== '\n') {
+        startPos--;
+    }
 
-		// Find end position of the current line
-		var endPos = cursorPos;
-		while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
-			endPos++;
-		}
+    // Find end position of the current line
+    var endPos = cursorPos;
+    while (endPos < textarea.value.length && textarea.value[endPos] !== '\n') {
+        endPos++;
+    }
 
-		// Set selection range to select the current line
-		textarea.setSelectionRange(startPos, endPos);
+    // Set selection range to select the current line
+    textarea.setSelectionRange(startPos, endPos);
 
-		// Restore focus and scroll position
-		textarea.focus();
-		textarea.scrollTop = scrollTop;
+    // Restore focus and scroll position
+    textarea.focus();
+    textarea.scrollTop = scrollTop;
 
-		// Restore selection if it was not at cursor position
-		if (selectionEnd !== cursorPos) {
-			textarea.setSelectionRange(cursorPos, selectionEnd);
-		}
-	}
-// select ALL
-function selectAll(){
-		var textBox = document.getElementById("myText");
-			textBox.select();
-			// Work around Chrome's little problem
-				// Prevent further mouseup intervention
-				textBox.onmouseup = null;
-				return false;
-	}
-
-document.getElementById('copy').onmousedown = function() {    // on copy button pressed
-console.log(document.execCommand('copy'))
+    // Restore selection if it was not at cursor position
+    if (selectionEnd !== cursorPos) {
+        textarea.setSelectionRange(cursorPos, selectionEnd);
+    }
 }
-document.getElementById('cut').onmousedown = function() {   // on cut button pressed
-console.log(document.execCommand('cut'))
-}
+    // select ALL
+    function selectAll() {
+        var textBox = document.getElementById("myText");
+        textBox.select();
+        // Work around Chrome's little problem
+        // Prevent further mouseup intervention
+        textBox.onmouseup = null;
+        return false;
+    }
+
+    document.getElementById('reload').onmousedown = function() { // on copy button released
+        window.location.href = window.location.href;
+    }
+    document.getElementById('copy').onmousedown = function() { // on copy button released
+        console.log(document.execCommand('copy'))
+    }
+    document.getElementById('cut').onmousedown = function() { // on cut button released
+        console.log(document.execCommand('cut'))
+    }
+
 
 
 </script>
 
 
 </body>
+
 </html>
